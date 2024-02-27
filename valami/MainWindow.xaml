@@ -7,6 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-    
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="dtgEredmeny"/>
+        <Button x:Name="btn1feladat" Grid.Column="1" Margin="62,57,62,321" Click="btn1feladat_Click" Content="1/A feladat"/>
     </Grid>
 </Window>
