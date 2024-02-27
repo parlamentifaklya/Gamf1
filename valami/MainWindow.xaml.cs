@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace valami
 {
@@ -23,6 +24,7 @@ namespace valami
         public MainWindow()
         {
             InitializeComponent();
+        
         }
     }
 }
