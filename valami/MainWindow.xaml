@@ -1,17 +1,14 @@
 ﻿<Window x:Class="valami.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:valami"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Anagram Calculator" Height="450" Width="800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <DataGrid x:Name="dtgEredmeny"/>
-        <Button x:Name="btn1feladat" Grid.Column="1" Margin="62,57,62,321" Click="btn1feladat_Click" Content="1/A feladat"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Button Content="Számok betöltése" Click="LoadNumbers_Click" Margin="10" Grid.Row="0"/>
+        <ListBox x:Name="numberListBox" Margin="10" Grid.Row="1"/>
     </Grid>
 </Window>

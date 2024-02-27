@@ -17,41 +17,73 @@ using System.IO;
 namespace valami
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// longeraction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<string> sorok = new List<string>();
-
         public MainWindow()
         {
             InitializeComponent();
+        }
 
-            string[] lines = File.ReadAllLines("szamok.txt");
-            foreach (var item in lines)
+        private void LoadNumbers_Click(object sender, RoutedEventArgs e)
+        {
+            List<string> numbers = LoadNumbersFromFile("szamok.txt");
+            if (numbers != null)
             {
-                sorok.Add(item);
+                List<string> anagrams = FindAnagrams("2354211341", numbers);
+                foreach (string anagram in anagrams)
+                {
+                    numberListBox.Items.Add(anagram);
+                }
+                MessageBox.Show($"A fájlban {numberListBox.Items.Count} darab szám van amely a 2354211341-nek az anagrammája.");
+            }
+            else
+            {
+                MessageBox.Show("A szamok.txt fájl nem található vagy üres.");
             }
         }
 
-        private void btn1feladat_Click(object sender, RoutedEventArgs e)
+        private List<string> LoadNumbersFromFile(string fileName)
         {
-            List<int> szamOsztok = new List<int>();
-            List<int> alandoOsztok = new List<int>();
-            int allando = 1310438493;
-            for(int x = 1; x < allando; x++)
+            if (File.Exists(fileName))
             {
-                alandoOsztok.Add(allando % x);
+                return File.ReadAllLines(fileName).ToList();
             }
-            for (int i = 0; i < sorok.Count; i++){
-                for (int j = 1; j < int.Parse(sorok[i]); j++)
+            return null;
+        }
+
+        private List<string> FindAnagrams(string targetNumber, List<string> numbers)
+        {
+            List<string> anagrams = new List<string>();
+            foreach (string number in numbers)
+            {
+                if (IsAnagram(targetNumber, number))
                 {
-                    szamOsztok.Add(int.Parse(sorok[j]) % j);
+                    anagrams.Add(number);
                 }
             }
-            List<int> kozosOsztok = szamOsztok.Intersect(alandoOsztok).ToList();
-            MessageBox.Show(kozosOsztok.Count.ToString());
+            return anagrams;
+        }
 
+        private bool IsAnagram(string str1, string str2)
+        {
+            if (str1.Length != str2.Length)
+                return false;
+
+            char[] chars1 = str1.ToCharArray();
+            char[] chars2 = str2.ToCharArray();
+
+            Array.Sort(chars1);
+            Array.Sort(chars2);
+
+            for (int i = 0; i < str1.Length; i++)
+            {
+                if (chars1[i] != chars2[i])
+                    return false;
+            }
+
+            return true;
         }
     }
 }
