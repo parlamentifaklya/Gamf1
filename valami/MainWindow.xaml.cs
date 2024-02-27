@@ -21,20 +21,36 @@ namespace valami
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<string> sorok = new List<string>();
+
         public MainWindow()
         {
             InitializeComponent();
 
-            List<string> sorok = new List<string>();
-            using (StreamReader sr = new StreamReader("szamok.txt"))
+            string[] lines = File.ReadAllLines("szamok.txt");
+            foreach (var item in lines)
             {
-                string line;
-                while ((line = sr.ReadLine()) != null)
+                sorok.Add(item);
+            }
+        }
+
+        private void btn1feladat_Click(object sender, RoutedEventArgs e)
+        {
+            List<int> szamOsztok = new List<int>();
+            List<int> alandoOsztok = new List<int>();
+            int allando = 1310438493;
+            for(int x = 1; x < allando; x++)
+            {
+                alandoOsztok.Add(allando % x);
+            }
+            for (int i = 0; i < sorok.Count; i++){
+                for (int j = 1; j < int.Parse(sorok[i]); j++)
                 {
-                    sorok.Add(line);
+                    szamOsztok.Add(int.Parse(sorok[j]) % j);
                 }
             }
-
+            List<int> kozosOsztok = szamOsztok.Intersect(alandoOsztok).ToList();
+            MessageBox.Show(kozosOsztok.Count.ToString());
 
         }
     }
